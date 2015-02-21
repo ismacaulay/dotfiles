@@ -1,0 +1,65 @@
+! Taken from http://crunchbang.org/forums/viewtopic.php?id=9935
+
+!urxvt color scheme:
+
+*background: #1f1f1f
+*foreground: #c0b18b
+
+!black
+*color0:#4A3637
+*color8:#4A3637
+
+!red
+*color1:#d17b49
+*color9:#d17b49
+
+!green
+*color2:#7b8748
+*color10:#7b8748
+
+!yellow
+*color3:#af865a
+*color11:#af865a
+
+!blue
+*color4:#535C5C
+*color12:#535C5C
+
+!magenta
+*color5:#775759
+*color13:#775759
+
+!cyan
+*color6:#6d715e
+*color14:#6d715e
+
+!white
+*color7:#c0b18b
+*color15:#c0b18b
+
+!urxvt fonts: 
+*font: xft:dejavu sans mono:pixelsize=12
+*boldFont: xft:dejavu sans mono:bold:pixelsize=12
+
+!urxvt extensions:
+URxvt.perl-ext-common:  default,matcher,tabbedex
+
+!enabling clickable links:
+URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.matcher.button:   1 
+
+!urxvt scrolling options and cursor style:
+URxvt*saveLines: 12000
+URxvt*scrollstyle:plain
+URxvt*scrollBar: false
+URxvt*cursorBlink: true
+URxvt*cursorUnderline: true
+
+! urxvt tabs settings:
+URxvt.tabbed.tabbar-fg: 2
+URxvt.tabbed.tabbar-bg: 0
+URxvt.tabbed.tab-fg: 2
+URxvt.tabbed.tab-bg: 8
+URxvt.tabbed.autohide:  yes
+URxvt.tabbed.new-button:  no
+URxvt.tabbed.title: no
