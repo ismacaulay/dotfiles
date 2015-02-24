@@ -10,10 +10,6 @@ set number
 set cursorline
 set nowrap
 
-execute pathogen#infect()
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-
 "colorscheme noctu
 colorscheme Tomorrow-Night-Eighties
 "colorscheme monokai
