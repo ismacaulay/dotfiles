@@ -14,8 +14,8 @@ execute pathogen#infect()
 
 set runtimepath^=~/.vim/bundle/ctrlp.vim
 
-colorscheme noctu
-"colorscheme Tomorrow-Night-Eighties
+"colorscheme noctu
+colorscheme Tomorrow-Night-Eighties
 "colorscheme monokai
 
 let g:airline_theme='monochrome'

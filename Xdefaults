@@ -1,41 +1,39 @@
-! Taken from http://crunchbang.org/forums/viewtopic.php?id=9935
-
 !urxvt color scheme:
 
-*background: #1f1f1f
-*foreground: #c0b18b
+urxvt*background: #3f3f3f
+urxvt*foreground: #dcdccc
 
 !black
-*color0:#4A3637
-*color8:#4A3637
+URxvt*color0: #3f3f3f
+URxvt*color8: #709080
 
 !red
-*color1:#d17b49
-*color9:#d17b49
+URxvt*color1: #705050
+URxvt*color9: #cc9393
 
 !green
-*color2:#7b8748
-*color10:#7b8748
+URxvt*color2: #60b48a
+URxvt*color10: #7f9f7f
 
 !yellow
-*color3:#af865a
-*color11:#af865a
+URxvt*color3: #dfaf8f
+URxvt*color11: #f0dfaf
 
 !blue
-*color4:#535C5C
-*color12:#535C5C
+URxvt*color4: #506070
+URxvt*color12: #94bff3
 
 !magenta
-*color5:#775759
-*color13:#775759
+URxvt*color5: #dc8cc3
+URxvt*color13: #ec93d3
 
 !cyan
-*color6:#6d715e
-*color14:#6d715e
+URxvt*color6: #8cd0d3
+URxvt*color14: #93e0e3
 
 !white
-*color7:#c0b18b
-*color15:#c0b18b
+URxvt*color7: #dcdccc
+URxvt*color15: #ffffff
 
 !urxvt fonts: 
 *font: xft:dejavu sans mono:pixelsize=12
@@ -49,7 +47,7 @@ URxvt.urlLauncher:      /usr/bin/firefox
 URxvt.matcher.button:   1 
 
 !urxvt scrolling options and cursor style:
-URxvt*saveLines: 12000
+URxvt*saveLines: 65535
 URxvt*scrollstyle:plain
 URxvt*scrollBar: false
 URxvt*cursorBlink: true
