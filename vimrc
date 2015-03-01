@@ -17,18 +17,24 @@ Plugin 'mileszs/ack.vim'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
+" Set tabs to 3
 set smartindent
 set tabstop=3
 set shiftwidth=3
 set softtabstop=3
 set expandtab
+set autoread
 
+" Preferences
 syntax on
 set number
 
 set cursorline
 set nowrap
 
+set hidden
+
+" Coloschemes
 "colorscheme noctu
 colorscheme Tomorrow-Night-Eighties
 "colorscheme monokai
@@ -37,4 +43,11 @@ let g:airline_theme='monochrome'
 let g:airline#extensions#tabline#enabled=1
 
 set wildignore=*.o,,*.obj,*.hi,*.class,*.jar
+
+" Save on focus lost
+:au FocusLost * silent! wa
+
+" Key mapping
+"close current buffer
+nnoremap <C-c> :bp\|bd #<CR>
 
