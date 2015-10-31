@@ -2,20 +2,21 @@ set nocompatible
 filetype off
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+"set rtp+=~/.vim/bundle/Vundle.vim
+"call vundle#begin()
+
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+"Plugin 'gmarik/Vundle.vim'
 
-Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
-Plugin 'mileszs/ack.vim'
+"Plugin 'kien/ctrlp.vim'
+"Plugin 'bling/vim-airline'
+"Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
-call vundle#end()            " required
+"call vundle#end()            " required
 
 " Set tabs to 3
 set smartindent
@@ -36,11 +37,12 @@ set hidden
 
 " Coloschemes
 "colorscheme noctu
-colorscheme Tomorrow-Night-Eighties
+"colorscheme Tomorrow-Night-Eighties
 "colorscheme monokai
+colorscheme wombat
 
-let g:airline_theme='monochrome'
-let g:airline#extensions#tabline#enabled=1
+"let g:airline_theme='monochrome'
+"let g:airline#extensions#tabline#enabled=1
 
 set wildignore=*.o,,*.obj,*.hi,*.class,*.jar
 

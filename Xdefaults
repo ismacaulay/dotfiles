@@ -1,57 +1,57 @@
 !urxvt color scheme:
 
-urxvt*background: #3f3f3f
-urxvt*foreground: #dcdccc
+*background: #3f3f3f
+*foreground: #dcdccc
 
 !black
-URxvt*color0: #3f3f3f
-URxvt*color8: #709080
+*color0: #3f3f3f
+*color8: #709080
 
 !red
-URxvt*color1: #705050
-URxvt*color9: #cc9393
+*color1: #705050
+*color9: #cc9393
 
 !green
-URxvt*color2: #60b48a
-URxvt*color10: #7f9f7f
+*color2: #60b48a
+*color10: #7f9f7f
 
 !yellow
-URxvt*color3: #dfaf8f
-URxvt*color11: #f0dfaf
+*color3: #dfaf8f
+*color11: #f0dfaf
 
 !blue
-URxvt*color4: #506070
-URxvt*color12: #94bff3
+*color4: #506070
+*color12: #94bff3
 
 !magenta
-URxvt*color5: #dc8cc3
-URxvt*color13: #ec93d3
+*color5: #dc8cc3
+*color13: #ec93d3
 
 !cyan
-URxvt*color6: #8cd0d3
-URxvt*color14: #93e0e3
+*color6: #8cd0d3
+*color14: #93e0e3
 
 !white
-URxvt*color7: #dcdccc
-URxvt*color15: #ffffff
+*color7: #dcdccc
+*color15: #ffffff
 
 !urxvt fonts: 
 *font: xft:dejavu sans mono:pixelsize=12
 *boldFont: xft:dejavu sans mono:bold:pixelsize=12
 
 !urxvt extensions:
-URxvt.perl-ext-common:  default,matcher,tabbedex
+urxvt.perl-ext-common:  default,matcher,tabbedex
 
 !enabling clickable links:
-URxvt.urlLauncher:      /usr/bin/firefox
-URxvt.matcher.button:   1 
+urxvt.urlLauncher:      /usr/bin/firefox
+urxvt.matcher.button:   1 
 
 !urxvt scrolling options and cursor style:
-URxvt*saveLines: 65535
-URxvt*scrollstyle:plain
-URxvt*scrollBar: false
-URxvt*cursorBlink: true
-URxvt*cursorUnderline: true
+*saveLines: 65535
+*scrollstyle:plain
+*scrollBar: false
+*cursorBlink: true
+*cursorUnderline: true
 
 ! urxvt tabs settings:
 URxvt.tabbed.tabbar-fg: 2
