@@ -36,22 +36,31 @@
 *color15: #ffffff
 
 !urxvt fonts: 
-*font: xft:dejavu sans mono:pixelsize=12
-*boldFont: xft:dejavu sans mono:bold:pixelsize=12
+Xft.dpi: 96
+Xft.antialias:true
+Xft.rgba:rgb
+Xft.hinting:true
+Xft.hintstyle:hintfull
+
+URxvt.font: xft:dejavu sans mono:pixelsize=12
+URxvt.boldFont: xft:dejavu sans mono:bold:pixelsize=12
+
+!URxvt.font: xft:bitsream vera sans mono:size=9
+!URxvt.boldFont: xft:bitstream vera sans mono:bold:size=9
 
 !urxvt extensions:
-urxvt.perl-ext-common:  default,matcher,tabbedex
+URxvt.perl-ext-common:  default,matcher,tabbedex
 
 !enabling clickable links:
-urxvt.urlLauncher:      /usr/bin/firefox
-urxvt.matcher.button:   1 
+URxvt.urlLauncher:      /usr/bin/firefox
+URxvt.matcher.button:   1 
 
 !urxvt scrolling options and cursor style:
-*saveLines: 65535
-*scrollstyle:plain
-*scrollBar: false
-*cursorBlink: true
-*cursorUnderline: true
+URxvt.saveLines: 65535
+URxvt.scrollstyle:plain
+URxvt.scrollBar: false
+URxvt.cursorBlink: true
+URxvt.cursorUnderline: true
 
 ! urxvt tabs settings:
 URxvt.tabbed.tabbar-fg: 2
@@ -61,3 +70,7 @@ URxvt.tabbed.tab-bg: 8
 URxvt.tabbed.autohide:  yes
 URxvt.tabbed.new-button:  no
 URxvt.tabbed.title: no
+
+URxvt.scrollTtyOutput: false
+URxvt.scrollWithBuffer: true
+URxvt.scrollTtyKeypress: true
