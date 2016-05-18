@@ -13,6 +13,7 @@ Plugin 'gmarik/Vundle.vim'
 
 Plugin 'kien/ctrlp.vim'
 Plugin 'bling/vim-airline'
+Plugin 'flazz/vim-colorschemes'
 "Plugin 'mileszs/ack.vim'
 
 " All of your Plugins must be added before the following line
