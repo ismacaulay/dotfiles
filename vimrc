@@ -46,7 +46,7 @@ colorscheme Tomorrow-Night-Eighties
 "let g:airline_theme='monochrome'
 "let g:airline#extensions#tabline#enabled=1
 
-set wildignore=*.o,,*.obj,*.hi,*.class,*.jar
+"set wildignore=*.o,,*.obj,*.hi,*.class,*.jar
 
 " Save on focus lost
 :au FocusLost * silent! wa
