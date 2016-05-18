@@ -21,9 +21,9 @@ filetype plugin indent on
 
 " Set tabs to 3
 set smartindent
-set tabstop=3
-set shiftwidth=3
-set softtabstop=3
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set autoread
 
@@ -38,9 +38,9 @@ set hidden
 
 " Coloschemes
 "colorscheme noctu
-"colorscheme Tomorrow-Night-Eighties
+colorscheme Tomorrow-Night-Eighties
 "colorscheme monokai
-colorscheme wombat
+"colorscheme wombat
 
 "let g:airline_theme='monochrome'
 "let g:airline#extensions#tabline#enabled=1
