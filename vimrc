@@ -1,65 +1,105 @@
-set nocompatible
-filetype off
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
+
+" The following are examples of different formats supported.
+" Keep Plugin commands between vundle#begin/end.
+" plugin on GitHub repo
+"Plugin 'tpope/vim-fugitive'
+" plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Git plugin not hosted on GitHub
+"Plugin 'git://git.wincent.com/command-t.git'
+" git repos on your local machine (i.e. when working on your own plugin)
+"Plugin 'file:///home/gmarik/path/to/plugin'
+" The sparkup vim script is in a subdirectory of this repo called vim.
+" Pass the path to set the runtimepath properly.
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" Install L9 and avoid a Naming conflict if you've already installed a
+" different version somewhere else.
+" Plugin 'ascenator/L9', {'name': 'newL9'}
+
+Plugin 'bling/vim-airline'
+Plugin 'flazz/vim-colorschemes'
+
+set rtp+=/usr/local/opt/fzf
+Plugin 'junegunn/fzf.vim'
+Plugin 'pbogut/fzf-mru.vim'
+
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'mileszs/ack.vim'
-"Plugin 'rking/ag.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'bling/vim-airline'
-"Plugin 'mileszs/ack.vim'
+
+Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
-filetype plugin indent on
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+"filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
 
-" Set tabs to spaces
-"set smartindent
-set tabstop=4
-set shiftwidth=4
-"set softtabstop=4
-set expandtab
-"set autoread
-
-"` Preferences
+" ----- General ------
 syntax on
 set number
-
 set cursorline
 set nowrap
+set relativenumber
 
-set hidden
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set undofile
+set t_Co=256
 
-" Coloschemes
-"colorscheme noctu
-"colorscheme Tomorrow-Night-Eighties
-"colorscheme monokai
-"colorscheme wombat
+autocmd FileType python set sw=4
+autocmd FileType python set ts=4
+autocmd FileType python set sts=4
+
+set backspace=indent,eol,start
+
+" ----- Theme ------
 colorscheme zenburn
+"colorscheme Tomorrow-Night-Eighties
 
-"let g:airline_theme='monochrome'
-"let g:airline#extensions#tabline#enabled=1
+" ----- NERDTree ------
+" Close Vim if the only window left open is NERDTree
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-"set wildignore=*.o,*.obj,*.hi,*.class,*.jar,*.out
-"let g:ctrlp_working_path_mode = '0'
+" ----- YouCompleteMe ------
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
 
-" Save on focus lost
-":au FocusLost * silent! wa
+"let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
+"let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 
-" Key mapping
-"close current buffer
-"nnoremap <C-c> :bp\|bd #<CR>
+" Goto definition with F3
+map <F3> :YcmCompleter GoTo<CR>
 
-"tagbar hotkey
-"nmap <F8> :TagbarToggle<CR>
+
+" ----- Keybindings -----
+
+map <F1> :NERDTreeFocus<CR>
+map <C-p> :FZF<CR>
+map <F2> :TagbarToggle<CR>
 
