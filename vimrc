@@ -39,7 +39,7 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'majutsushi/tagbar'
 
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required

@@ -6,7 +6,7 @@ function git_prompt_info() {
 }
 
 local ret_status="%(?:%{$fg[green]%}:%{$fg[red]%})"
-PROMPT='%{$fg[yellow]%}%~%{$(git_prompt_info)%}%{${ret_status}%} →%{$reset_color%} '
+PROMPT='%{$fg[yellow]%}%~$(git_prompt_info)%{${ret_status}%} →%{$reset_color%} '
 
 ZSH_THEME_GIT_PROMPT_PREFIX=" ["
 ZSH_THEME_GIT_PROMPT_SUFFIX="]%{$reset_color%}"
