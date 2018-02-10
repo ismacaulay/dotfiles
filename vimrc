@@ -66,7 +66,6 @@ set relativenumber
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set undofile
 set t_Co=256
 
 autocmd FileType python set sw=4
