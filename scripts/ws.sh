@@ -14,8 +14,8 @@ $usage
 END
 )
 
-    if [ -z $WORKSPACE_BASE ]; then
-        local WORKSPACE_BASE=$HOME/workspaces
+    if [ -z $WORKSPACES_DIR ]; then
+        local WORKSPACES_DIR=$HOME/workspaces
     fi
 
     if [ $# -eq 0 ]; then
@@ -34,7 +34,7 @@ END
                 ;;
             -l)
                 local workspaces=()
-                ls -d $WORKSPACE_BASE/* | while read -r line ; do
+                ls -d $WORKSPACES_DIR/*/ | while read -r line ; do
                     printf "%-8s\n" "$(basename ${line})"
                 done | column
                 return 0
@@ -51,6 +51,6 @@ END
         esac
     done
 
-    cd $WORKSPACE_BASE/${args[@]}
+    cd $WORKSPACES_DIR/${args[@]}
 }
 

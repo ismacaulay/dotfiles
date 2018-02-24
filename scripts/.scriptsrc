@@ -2,5 +2,7 @@
 
 SCRIPTS_DIR=$(dirname $_)
 
+fpath=($SCRIPTS_DIR $fpath)
+
 . $SCRIPTS_DIR/ws.sh
 

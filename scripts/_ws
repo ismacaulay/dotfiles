@@ -1,0 +1,11 @@
+#compdef ws
+
+_ws() {
+    local -a workspaces
+    ws -l | while read -r line ; do
+        workspaces+=($(basename ${line}))
+    done
+    _describe 'workspaces' workspaces
+}
+
+_ws "$@"
