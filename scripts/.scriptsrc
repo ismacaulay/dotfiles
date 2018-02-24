@@ -1,0 +1,6 @@
+#!/bin/bash
+
+SCRIPTS_DIR=$(dirname $_)
+
+. $SCRIPTS_DIR/ws.sh
+
