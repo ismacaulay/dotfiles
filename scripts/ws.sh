@@ -19,8 +19,8 @@ END
     fi
 
     if [ $# -eq 0 ]; then
-        echo $usage
-        return 1
+        cd $WORKSPACES_DIR
+        return 0
     fi
 
     local args=()
