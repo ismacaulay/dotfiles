@@ -20,8 +20,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 Plug 'scrooloose/nerdtree'
-Plug 'HerringtonDarkholme/yats.vim'
+Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-grepper'
+Plug 'tomtom/tcomment_vim'
 
 " Initialize plugin system
 call plug#end()
@@ -41,6 +44,17 @@ set tabstop=4
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
+
+" ----- Whitespace -----
+fun! <SID>StripTrailingWhitespaces()
+    let l = line(".")
+    let c = col(".")
+    keepp %s/\s\+$//e
+    call cursor(l, c)
+endfun
+autocmd BufWritePre * :call <SID>StripTrailingWhitespaces()
+set list
+set list listchars=tab:→\ ,trail:·
 
 " ----- Theme ------
 colorscheme zenburn
