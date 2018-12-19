@@ -20,6 +20,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 Plug 'scrooloose/nerdtree'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'tpope/vim-fugitive'
 
 " Initialize plugin system
 call plug#end()
@@ -44,14 +46,20 @@ set expandtab
 colorscheme zenburn
 
 " ----- Keybindings -----
+let mapleader = "\<Space>"
+
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
+noremap <Leader>w <C-w>
 
 map <C-p> :FZF<CR>
-
 map <C-n> :NERDTreeToggle<CR>
 
 " ----- NERDTree ------
 let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
+
+" ----- fzf ------
+let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+
