@@ -6,7 +6,14 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 
-Plug '/usr/bin/fzf'
+if has('unix')
+    let s:uname = substitute(system('uname -s'), '\n', '', '')
+    if s:uname == 'Darwin'
+        Plug '/usr/local/opt/fzf'
+    else
+        Plug '/usr/bin/fzf'
+    endif
+endif
 Plug 'junegunn/fzf.vim'
 
 Plug 'pangloss/vim-javascript'
@@ -46,3 +53,5 @@ map <C-p> :FZF<CR>
 
 map <C-n> :NERDTreeToggle<CR>
 
+" ----- NERDTree ------
+let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
