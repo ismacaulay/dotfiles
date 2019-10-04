@@ -22,6 +22,7 @@ Plug 'junegunn/fzf.vim'
 " Plug 'mxw/vim-jsx'
 " Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " go
 Plug 'fatih/vim-go'
@@ -34,6 +35,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-grepper'
 Plug 'tomtom/tcomment_vim'
+
+" tmux
+Plug 'christoomey/vim-tmux-navigator'
 
 " linting
 " Plug 'w0rp/ale'
@@ -90,7 +94,7 @@ set list listchars=tab:→\ ,trail:·
 
 " ----- Keybindings -----
 let mapleader = "\<Space>"
-inoremap jj <esc>
+" inoremap jj <esc>
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
@@ -101,8 +105,13 @@ noremap <Leader>w <C-w>
 map <C-p> :FZF<CR>
 map <C-n> :NERDTreeToggle<CR>
 
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
+
 nnoremap <leader>g :Grepper -tool ag<cr>
 
 " Remap keys for gotos
@@ -165,3 +174,7 @@ let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 
 " ----- quick fix -----
 au FileType qf wincmd J
+
+" ----- save on focus lost -----
+":au FocusLost * silent! wa
+
