@@ -5,6 +5,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
+Plug 'qpkorr/vim-bufkill'
 
 " fzf
 if has('unix')
@@ -24,6 +25,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
+" glsl
+Plug 'tikhomirov/vim-glsl'
+
 " go
 Plug 'fatih/vim-go'
 
@@ -38,6 +42,7 @@ Plug 'tomtom/tcomment_vim'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " linting
 " Plug 'w0rp/ale'
@@ -105,14 +110,18 @@ noremap <Leader>w <C-w>
 map <C-p> :FZF<CR>
 map <C-n> :NERDTreeToggle<CR>
 
-" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
+nnoremap <esc><esc> :noh<return>
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
+" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 nnoremap <leader>g :Grepper -tool ag<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -178,3 +187,13 @@ au FileType qf wincmd J
 " ----- save on focus lost -----
 ":au FocusLost * silent! wa
 
+" ----- refresh on focus -----
+set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
