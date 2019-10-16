@@ -5,7 +5,7 @@
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
-Plug 'qpkorr/vim-bufkill'
+Plug 'terryma/vim-multiple-cursors'
 
 " fzf
 if has('unix')
@@ -23,7 +23,7 @@ Plug 'junegunn/fzf.vim'
 " Plug 'mxw/vim-jsx'
 " Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " glsl
 Plug 'tikhomirov/vim-glsl'
@@ -34,11 +34,15 @@ Plug 'fatih/vim-go'
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'rhysd/git-messenger.vim'
 
 Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
 Plug 'mhinz/vim-grepper'
 Plug 'tomtom/tcomment_vim'
+
+" status lines
+" Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -61,7 +65,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'prabirshrestha/async.vim'
 " Plug 'prabirshrestha/vim-lsp'
 " Plug 'ryanolsonx/vim-lsp-typescript'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
 call plug#end()
@@ -108,7 +112,7 @@ noremap <Right> <NOP>
 noremap <Leader>w <C-w>
 
 map <C-p> :FZF<CR>
-map <C-n> :NERDTreeToggle<CR>
+map <C-b> :NERDTreeToggle<CR>
 
 nnoremap <esc><esc> :noh<return>
 
@@ -122,6 +126,11 @@ inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 nnoremap <leader>g :Grepper -tool ag<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
+
+" prettier
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -197,3 +206,21 @@ autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checkti
 " https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
 autocmd FileChangedShellPost *
   \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+" ----- status line -----
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'cocstatus': 'coc#status'
+    \ },
+    \ }
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" ----- clipboard -----
+set clipboard+=unnamed
