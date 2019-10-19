@@ -29,7 +29,7 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tikhomirov/vim-glsl'
 
 " go
-Plug 'fatih/vim-go'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " git
 Plug 'airblade/vim-gitgutter'

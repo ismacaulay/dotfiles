@@ -1,7 +1,6 @@
 #!/bin/bash
 
-alias gpr='git pull --rebase'
-alias gc='git checkout'
-
 alias twitch='google-chrome-stable --app=https://twitch.tv'
+
+alias vim=nvim
 
