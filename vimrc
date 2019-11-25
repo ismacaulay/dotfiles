@@ -51,12 +51,6 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " linting
 " Plug 'w0rp/ale'
 
-" completion
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#enable_at_startup = 1
-" Plug 'zchee/deoplete-go', { 'do': 'make'}
-" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-
 " ctags
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'majutsushi/tagbar'
@@ -129,14 +123,20 @@ nnoremap <leader>nf :NERDTreeFind<cr>
 
 " prettier
 vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format)
+
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -154,41 +154,6 @@ let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
 
 " ----- fzf ------
 let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
-
-" ----- deoplete -----
-" let g:deoplete#sources#go#gocode_binary = $HOME.'/go/bin/gocode'
-" let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
-" set completeopt-=preview
-
-" ----- gutentags -----
-" let g:gutentags_project_root = ['Makefile']
-" set statusline+=%{gutentags#statusline()}
-
-" ----- tagbar -----
-" let g:tagbar_type_typescript = {
-"   \ 'ctagstype': 'typescript',
-"   \ 'kinds': [
-"     \ 'c:classes',
-"     \ 'n:modules',
-"     \ 'f:functions',
-"     \ 'v:variables',
-"     \ 'v:varlambdas',
-"     \ 'm:members',
-"     \ 'i:interfaces',
-"     \ 'e:enums',
-"   \ ]
-"   \ }
-
-" ----- ALE -----
-" let g:ale_fixers = {
-" \   'javascript': ['prettier'],
-" \   'typescript': ['prettier'],
-" \   'css': ['prettier'],
-" \}
-" let g:ale_linters_explicit = 1
-" let g:ale_fix_on_save = 1
-
-" ----- coc -----
 
 " ----- quick fix -----
 au FileType qf wincmd J
