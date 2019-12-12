@@ -1,4 +1,4 @@
 {
-    "python.jediEnabled": false,
-    "python.formatting.provider": "yapf"
+  "python.jediEnabled": false,
+  "python.formatting.provider": "yapf"
 }
