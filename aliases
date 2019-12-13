@@ -1,7 +1,10 @@
 #!/bin/bash
-
-alias gpr='git pull --rebase'
-alias gc='git checkout'
+alias vim=nvim
+alias vimdiff='nvim -d'
+alias szrc='source ~/.zshrc'
+alias ezrc='vim ~/.zshrc'
+alias evrc='vim ~/.vimrc'
 
 alias twitch='google-chrome-stable --app=https://twitch.tv'
+
 

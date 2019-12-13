@@ -1,4 +1,11 @@
 {
     "python.jediEnabled": false,
-    "python.formatting.provider": "yapf"
+    "python.formatting.provider": "yapf",
+    "languageserver": {
+        "golang": {
+            "command": "gopls",
+            "rootPatterns": ["go.mod"],
+                "filetypes": ["go"]
+        }
+    }
 }
