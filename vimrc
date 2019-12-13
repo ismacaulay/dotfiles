@@ -19,11 +19,7 @@ endif
 Plug 'junegunn/fzf.vim'
 
 " javascript
-" Plug 'pangloss/vim-javascript'
-" Plug 'mxw/vim-jsx'
-" Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
-" Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 " glsl
 Plug 'tikhomirov/vim-glsl'
@@ -34,31 +30,23 @@ Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'rhysd/git-messenger.vim'
 
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-grepper'
 Plug 'tomtom/tcomment_vim'
 
 " status lines
-" Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" linting
-" Plug 'w0rp/ale'
-
 " ctags
 " Plug 'ludovicchabant/vim-gutentags'
 " Plug 'majutsushi/tagbar'
 
 " lsp
-" Plug 'prabirshrestha/async.vim'
-" Plug 'prabirshrestha/vim-lsp'
-" Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Initialize plugin system
@@ -73,11 +61,8 @@ set relativenumber
 
 " ----- Tabs -----
 filetype plugin indent on
-" show existing tab with 4 spaces width
 set tabstop=4
-" when indenting with '>', use 4 spaces width
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
 set expandtab
 
 " ----- Theme ------
@@ -97,50 +82,47 @@ set list listchars=tab:→\ ,trail:·
 
 " ----- Keybindings -----
 let mapleader = "\<Space>"
-" inoremap jj <esc>
 
 noremap <Up> <NOP>
 noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
-noremap <Leader>w <C-w>
 
 map <C-p> :FZF<CR>
-map <C-b> :NERDTreeToggle<CR>
 
 nnoremap <esc><esc> :noh<return>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-" inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
-" inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
-nnoremap <leader>g :Grepper -tool ag<cr>
+nnoremap <leader>g :Grepper -tool ag<CR>
+nnoremap <leader>G :Grepper -tool ag -cword -noprompt<cr>
+
+nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 
-" prettier
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-" Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+
+nnoremap <leader>te :tabe<cr>
+nnoremap <leader>tc :tabc<cr>
+
+nnoremap <leader>o :call CurtineIncSw()<cr>
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
 function! s:show_documentation()
   if &filetype == 'vim'
     execute 'h '.expand('<cword>')
@@ -184,7 +166,7 @@ let g:lightline = {
     \ },
     \ }
 
-" Use auocmd to force lightline update.
+" Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " ----- clipboard -----
