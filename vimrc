@@ -6,6 +6,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
+" Plug 'ryanoasis/vim-devicons'
 
 " fzf
 if has('unix')
@@ -61,6 +62,8 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 " Plug 'ryanolsonx/vim-lsp-typescript'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+Plug 'rhysd/vim-clang-format'
+
 " Initialize plugin system
 call plug#end()
 
@@ -105,6 +108,8 @@ noremap <Left> <NOP>
 noremap <Right> <NOP>
 noremap <Leader>w <C-w>
 
+nnoremap ; :
+
 map <C-p> :FZF<CR>
 map <C-b> :NERDTreeToggle<CR>
 
@@ -122,6 +127,9 @@ nnoremap <leader>g :Grepper -tool ag<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 
 " prettier
+autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
+
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)
 
@@ -138,6 +146,9 @@ nmap <silent> gr <Plug>(coc-references)
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
 
+" I always it W so just make it write instead of the fzf command
+command! W  write
+
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -153,7 +164,9 @@ endfunction
 let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
 
 " ----- fzf ------
-let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
+let $FZF_DEFAULT_COMMAND = "rg --hidden --files -g '!.git'"
+
 
 " ----- quick fix -----
 au FileType qf wincmd J
