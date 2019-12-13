@@ -31,7 +31,8 @@ floating_modifier $mod
 
 # start a terminal
 # bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec st
+# bindsym $mod+Return exec st
+bindsym $mod+Return exec urxvt
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -185,3 +186,7 @@ bar {
         status_command i3status
         strip_workspace_numbers yes
 }
+
+for_window [class="^.* adventure$"] floating enable
+for_window [class="feh"] floating enable
+
