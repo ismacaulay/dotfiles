@@ -1,3 +1,5 @@
+set encoding=utf-8
+
 " ----- Plugins ------
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -6,7 +8,7 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'ryanoasis/vim-devicons'
+Plug 'ryanoasis/vim-devicons'
 
 " fzf
 if has('unix')
@@ -101,20 +103,24 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
-nnoremap <leader>g :Grepper -tool ag<CR>
-nnoremap <leader>G :Grepper -tool ag -cword -noprompt<cr>
+nnoremap <leader>g :Grepper -tool rg<CR>
+nnoremap <leader>G :Grepper -tool rg -cword -noprompt<cr>
 
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
 
-autocmd FileType c,cpp,objc nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
-autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc,glsl,frag,vert vnoremap <buffer><leader>cf :ClangFormat<CR>
 
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)
 
+command! -nargs=0 CE :CocCommand eslint.executeAutofix
+nmap <leader>ef  :CE<cr>
+
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>rn <Plug>(coc-rename)
+nnoremap <silent> <leader>p :<C-u>CocList -I symbols<cr>
 
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -147,7 +153,7 @@ let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
 
 " ----- fzf ------
 " let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
-let $FZF_DEFAULT_COMMAND = "rg --hidden --files -g '!.git'"
+let $FZF_DEFAULT_COMMAND = "rg --hidden --files -g !.git"
 
 
 " ----- quick fix -----
