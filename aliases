@@ -7,4 +7,6 @@ alias evrc='vim ~/.vimrc'
 
 alias twitch='google-chrome-stable --app=https://twitch.tv'
 
+alias pc='procrast-cli'
+
 

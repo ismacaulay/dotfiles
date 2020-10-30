@@ -28,6 +28,12 @@ Plug 'tikhomirov/vim-glsl'
 " go
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
+" svelte
+Plug 'evanleck/vim-svelte'
+
+" rust
+Plug 'rust-lang/rust.vim'
+
 " git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -112,6 +118,7 @@ autocmd FileType c,cpp,objc vnoremap <buffer><leader>cf :ClangFormat<CR>
 
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)
+autocmd FileType rust nnoremap <buffer><leader>f :RustFmt<CR>
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>rn <Plug>(coc-rename)
