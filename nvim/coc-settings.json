@@ -1,6 +1,5 @@
 {
     "typescript.updateImportsOnFileMove.enable": true,
-    "typescript.preferences.importModuleSpecifier": "relative",
 
     "languageserver": {
         "golang": {

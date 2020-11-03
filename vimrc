@@ -8,7 +8,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ryanoasis/vim-devicons'
 
 " fzf
 if has('unix')
@@ -23,12 +22,13 @@ Plug 'junegunn/fzf.vim'
 
 " javascript
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'evanleck/vim-svelte'
 
 " glsl
 Plug 'tikhomirov/vim-glsl'
 
 " go
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " git
 Plug 'airblade/vim-gitgutter'
@@ -95,7 +95,8 @@ noremap <Right> <NOP>
 
 nnoremap ; :
 
-map <C-p> :FZF<CR>
+" map <C-p> :FZF<CR>
+map <C-p> :Files<CR>
 
 nnoremap <esc><esc> :noh<return>
 

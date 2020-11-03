@@ -100,6 +100,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 
 if [ -f '/Users/ianmacaulay/workspaces/dotfiles/aliases' ]; then . '/Users/ianmacaulay/workspaces/dotfiles/aliases'; fi
+if [ -f '/Users/ianmacaulay/workspaces/completion/alacritty.bash' ]; then . '/Users/ianmacaulay/workspaces/completion/alacritty.bash'; fi
 
 alias gbc='git branch-clean'
 alias link-shim=yarn link @seequent/cloud-platform-shim
