@@ -1,4 +1,8 @@
 set encoding=utf-8
+set noswapfile
+set nobackup
+set incsearch
+set clipboard+=unnamed
 
 " ----- Plugins ------
 " Specify a directory for plugins
@@ -7,7 +11,6 @@ set encoding=utf-8
 call plug#begin('~/.vim/plugged')
 
 Plug 'morhetz/gruvbox'
-Plug 'terryma/vim-multiple-cursors'
 
 " fzf
 if has('unix')
@@ -20,9 +23,8 @@ if has('unix')
 endif
 Plug 'junegunn/fzf.vim'
 
-" javascript
+" syntax highlighting
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'evanleck/vim-svelte'
 
 " glsl
 Plug 'tikhomirov/vim-glsl'
@@ -32,27 +34,25 @@ Plug 'tikhomirov/vim-glsl'
 
 " git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 
+Plug 'tpope/vim-fugitive'
 Plug 'scrooloose/nerdtree'
 Plug 'mhinz/vim-grepper'
 Plug 'tomtom/tcomment_vim'
-
-" status lines
 Plug 'itchyny/lightline.vim'
+Plug 'mbbill/undotree'
 
 " tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
-" ctags
-" Plug 'ludovicchabant/vim-gutentags'
-" Plug 'majutsushi/tagbar'
-
 " lsp
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
 Plug 'rhysd/vim-clang-format'
+
+" languages
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'evanleck/vim-svelte'
 
 " Initialize plugin system
 call plug#end()
@@ -93,12 +93,11 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-nnoremap ; :
-
-" map <C-p> :FZF<CR>
 map <C-p> :Files<CR>
+" map <C-p> :FZF<CR>
 
-nnoremap <esc><esc> :noh<return>
+" nnoremap <esc><esc> :noh<return>
+nnoremap <esc> :noh<return><esc>
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -109,6 +108,8 @@ nnoremap <leader>G :Grepper -tool rg -cword -noprompt<cr>
 
 nnoremap <leader>nt :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
+
+nnoremap <leader>ut :UndotreeToggle<cr>:UndotreeFocus<cr>
 
 autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc,glsl,frag,vert vnoremap <buffer><leader>cf :ClangFormat<CR>
@@ -150,12 +151,11 @@ function! s:show_documentation()
 endfunction
 
 " ----- NERDTree ------
-let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
+" let g:NERDTreeNodeDelimiter = "\u00a0"  " Hack to fix NERDTree delim
 
 " ----- fzf ------
 " let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -l -g ""'
 let $FZF_DEFAULT_COMMAND = "rg --hidden --files -g !.git"
-
 
 " ----- quick fix -----
 au FileType qf wincmd J
@@ -179,15 +179,11 @@ let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+    \             [ 'cocstatus', 'readonly', 'absolutepath', 'modified' ] ]
     \ },
     \ 'component_function': {
     \   'cocstatus': 'coc#status'
     \ },
     \ }
-
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
-
-" ----- clipboard -----
-set clipboard+=unnamed
