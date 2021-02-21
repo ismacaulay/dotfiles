@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ $# -eq 0 ]; then
+    # google-chrome-stable --app=https://twitch.tv
+    firefox https://twitch.tv
+elif [ $# -eq 1 ]; then
+    # google-chrome-stable --app=https://twitch.tv/$@
+    firefox https://twitch.tv/$@
+fi
+

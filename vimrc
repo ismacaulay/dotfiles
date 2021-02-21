@@ -113,6 +113,7 @@ nnoremap <leader>ut :UndotreeToggle<cr>:UndotreeFocus<cr>
 
 autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
 autocmd FileType c,cpp,objc,glsl,frag,vert vnoremap <buffer><leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>o :CocCommand clangd.switchSourceHeader<CR>
 
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)

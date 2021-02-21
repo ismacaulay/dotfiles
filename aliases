@@ -6,6 +6,9 @@ alias szrc='source ~/.zshrc'
 alias ezrc='vim ~/.zshrc'
 alias evrc='vim ~/.vimrc'
 
+alias fix-keyboard="xmodmap ~/.Xmodmap && xcape -e 'Control_L=Escape'"
+alias scap="pushd ~/images && scrot -s && popd"
+
 alias twitch='google-chrome-stable --app=https://twitch.tv'
 alias yl=$HOME/workspaces/dotfiles/scripts/yl.sh
 

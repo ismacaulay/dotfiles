@@ -20,12 +20,16 @@ setopt ignore_eof
 
 export EDITOR='nvim'
 
-if [ -f '/Users/ianmacaulay/workspaces/dotfiles/aliases' ]; then . '/Users/ianmacaulay/workspaces/dotfiles/aliases'; fi
-if [ -f '/Users/ianmacaulay/workspaces/completion/alacritty.bash' ]; then . '/Users/ianmacaulay/workspaces/completion/alacritty.bash'; fi
+if [ -f $HOME/workspaces/dotfiles/aliases ]; then . $HOME/workspaces/dotfiles/aliases; fi
+if [ -f $HOME/workspaces/completion/alacritty.bash ]; then . $HOME/workspaces/completion/alacritty.bash; fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # PROMPT='%F{yellow}%~ %(?.%F{green}→.%F{red}→)%f '
 
@@ -38,3 +42,6 @@ eval "$(starship init zsh)"
 # zsh performance tracing
 # unsetopt XTRACE
 # exec 2>&3 3>&-
+
+# Created by `userpath` on 2021-01-31 04:54:26
+export PATH="$PATH:/home/ian/.local/bin"
