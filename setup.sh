@@ -2,6 +2,10 @@
 
 DOTFILES_DIR=$HOME/workspaces/dotfiles
 
+git config --global user.name "Ian Macaulay"
+git config --global user.email "ismacaul@gmail.com"
+git config --global pull.rebase false
+
 # setup zshrc
 ln -s $DOTFILES_DIR/zsh/zshrc $HOME/.zshrc
 
