@@ -1,4 +1,5 @@
 # zsh performance tracing
+# zmodload zsh/zprof
 # zmodload zsh/datetime
 # setopt PROMPT_SUBST
 # PS4='+$EPOCHREALTIME %N:%i> '
@@ -23,20 +24,21 @@ export EDITOR='nvim'
 if [ -f $HOME/workspaces/dotfiles/aliases ]; then . $HOME/workspaces/dotfiles/aliases; fi
 if [ -f $HOME/workspaces/completion/alacritty.bash ]; then . $HOME/workspaces/completion/alacritty.bash; fi
 
-#export PATH="$HOME/.pyenv/bin:$PATH"
-#eval "$(pyenv init -)"
-#eval "$(pyenv virtualenv-init -)"
-
 # PROMPT='%F{yellow}%~ %(?.%F{green}→.%F{red}→)%f '
 
 zstyle ':completion:*' menu select
 autoload -U compinit && compinit
 zmodload -i zsh/complist
 
+# initialize zsh plugins
 export NVM_LAZY_LOAD=true
-source ~/.zsh-nvm/zsh-nvm.plugin.zsh
+source ~/.zsh-plugins/zsh-nvm/zsh-nvm.plugin.zsh
+source ~/.zsh-plugins/evalcache/evalcache.plugin.zsh
 
-eval "$(starship init zsh)"
+export PATH="$HOME/.pyenv/bin:$PATH"
+_evalcache pyenv init -
+_evalcache pyenv virtualenv-init -
+_evalcache starship init zsh
 
 # zsh performance tracing
 # unsetopt XTRACE
@@ -79,9 +81,10 @@ key[Shift-Tab]="${terminfo[kcbt]}"
 # Finally, make sure the terminal is in application mode, when zle is
 # active. Only then are the values from $terminfo valid.
 if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
-	autoload -Uz add-zle-hook-widget
-	function zle_application_mode_start { echoti smkx }
-	function zle_application_mode_stop { echoti rmkx }
-	add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
-	add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
+    autoload -Uz add-zle-hook-widget
+    function zle_application_mode_start { echoti smkx }
+    function zle_application_mode_stop { echoti rmkx }
+    add-zle-hook-widget -Uz zle-line-init zle_application_mode_start
+    add-zle-hook-widget -Uz zle-line-finish zle_application_mode_stop
 fi
+
