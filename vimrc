@@ -13,14 +13,15 @@ call plug#begin('~/.vim/plugged')
 Plug 'morhetz/gruvbox'
 
 " fzf
-if has('unix')
-    let s:uname = substitute(system('uname -s'), '\n', '', '')
-    if s:uname == 'Darwin'
-        Plug '/usr/local/opt/fzf'
-    else
-        Plug '/usr/bin/fzf'
-    endif
-endif
+" if has('unix')
+"     let s:uname = substitute(system('uname -s'), '\n', '', '')
+"     if s:uname == 'Darwin'
+"         Plug '/usr/local/opt/fzf'
+"     else
+"         Plug '/bin/fzf'
+"     endif
+" endif
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " syntax highlighting
@@ -52,7 +53,7 @@ Plug 'rhysd/vim-clang-format'
 
 " languages
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-" Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte'
 
 " Initialize plugin system
 call plug#end()
