@@ -1,10 +1,8 @@
 lua << EOF
-lspconfig = require "lspconfig"
-
 local function on_attach()
 end
 
-lspconfig.gopls.setup{
+require'lspconfig'.gopls.setup{
     on_attach=on_attach,
     cmd = {"gopls", "serve"},
     settings = {
@@ -15,6 +13,14 @@ lspconfig.gopls.setup{
             staticcheck = true,
         },
     },
+}
+
+require'lspconfig'.tsserver.setup{
+    on_attach=on_attach
+}
+
+require'lspconfig'.svelte.setup{
+    on_attach=on_attach
 }
 EOF
 
