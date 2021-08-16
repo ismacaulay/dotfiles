@@ -21,8 +21,11 @@ setopt ignore_eof
 
 export EDITOR='nvim'
 
-if [ -f $HOME/workspaces/dotfiles/aliases ]; then . $HOME/workspaces/dotfiles/aliases; fi
+DOTFILES_DIR=$HOME/workspaces/dotfiles
+
+if [ -f $DOTFILES_DIR/aliases ]; then . $DOTFILES_DIR/aliases; fi
 if [ -f $HOME/workspaces/completion/alacritty.bash ]; then . $HOME/workspaces/completion/alacritty.bash; fi
+if [ -d $DOTFILES_DIR/bin ]; then export PATH=$DOTFILES_DIR/bin:$PATH; fi
 
 # PROMPT='%F{yellow}%~ %(?.%F{green}→.%F{red}→)%f '
 
