@@ -32,6 +32,6 @@ EOF
 map <C-p> <cmd>Telescope find_files<cr>
 map <C-f> <cmd>Telescope live_grep<cr>
 nnoremap <leader>g <cmd>Telescope grep_string<cr>
-nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+nnoremap <leader>tg <cmd>Telescope git_branches<cr>
 nnoremap <leader>tb <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
