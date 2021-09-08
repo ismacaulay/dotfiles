@@ -1,4 +1,3 @@
-
 " ----- General ------
 set encoding=utf-8
 set noswapfile
@@ -33,30 +32,47 @@ set list listchars=tab:→\ ,trail:·
 let mapleader = "\<Space>"
 command! W  write
 
+" ----- refresh on focus -----
+set autoread
+" Triger `autoread` when files changes on disk
+" https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
+" https://vi.stackexchange.com/questions/13692/prevent-focusgained-autocmd-running-in-command-line-editing-mode
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+" Notification after file change
+" https://vi.stackexchange.com/questions/13091/autocmd-event-for-autoread
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+" for polyglot
+set nocompatible
 call plug#begin('~/.vim/plugged')
 
-" colouring
+" syntax highlighting/colour scheme
 Plug 'gruvbox-community/gruvbox'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'hashivim/vim-terraform'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'sheerun/vim-polyglot'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-telescope/telescope-fzy-native.nvim'
 
-" lsp
-Plug 'neovim/nvim-lspconfig'
-Plug 'hrsh7th/nvim-compe'
+" lsp and formatting
+" Plug 'neovim/nvim-lspconfig'
+" Plug 'hrsh7th/nvim-compe'
+" Plug 'sbdchd/neoformat'
+
+" :CocInstall coc-clangd coc-tsserver coc-eslint coc-json coc-prettier coc-css coc-pyright coc-svelte
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/telescope-coc.nvim'
 
 " tools
+Plug 'preservim/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
-Plug 'sbdchd/neoformat'
-
 
 call plug#end()
 
@@ -69,6 +85,50 @@ set background=dark
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-vmap <leader>f :Neoformat<CR>
-nmap <leader>f :Neoformat<CR>
+" vmap <leader>f :Neoformat<CR>
+" nmap <leader>f :Neoformat<CR>
 
+" ----- NERDTree ------
+nnoremap <leader>nt :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<cr>
+
+" ----- CoC ------
+command! -nargs=0 CE :CocCommand eslint.executeAutofix
+nmap <leader>ef  :CE<cr>
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
+nnoremap <silent> <leader>p :<C-u>CocList -I symbols<cr>
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format)
+nmap <leader>rn <Plug>(coc-rename)
+
+" nmap <silent>gd <Plug>(coc-definition)
+" nmap <silent>gy <Plug>(coc-type-definition)
+" nmap <silent>gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :Telescope coc definitions<cr>
+nmap <silent> gi :Telescope coc implementations<cr>
+nmap <silent> gr :Telescope coc references<cr>
+
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" ----- status line -----
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'cocstatus', 'readonly', 'absolutepath', 'modified' ] ]
+    \ },
+    \ 'component_function': {
+    \   'cocstatus': 'coc#status'
+    \ },
+    \ }
+" Use autocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
