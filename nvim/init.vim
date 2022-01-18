@@ -11,6 +11,9 @@ set cursorline
 set nowrap
 set relativenumber
 
+" set wildignore+=**/.git/*
+" set wildignore+=**/vendor/*
+
 " ----- Tabs -----
 filetype plugin indent on
 set tabstop=4
@@ -31,6 +34,7 @@ set list listchars=tab:→\ ,trail:·
 " ----- Keybindings -----
 let mapleader = "\<Space>"
 command! W  write
+nnoremap <esc> :noh<return><esc>
 
 " ----- refresh on focus -----
 set autoread
@@ -74,6 +78,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-commentary'
 
+Plug 'rhysd/vim-clang-format'
+
 call plug#end()
 
 " ----- Theme ------
@@ -82,8 +88,9 @@ set background=dark
 
 " ----- LSP Completion config ------
 " Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " vmap <leader>f :Neoformat<CR>
 " nmap <leader>f :Neoformat<CR>
@@ -101,6 +108,10 @@ nnoremap <silent> <leader>p :<C-u>CocList -I symbols<cr>
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format)
 nmap <leader>rn <Plug>(coc-rename)
+
+autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+autocmd FileType c,cpp,objc,glsl,frag,vert vnoremap <buffer><leader>cf :ClangFormat<CR>
+autocmd FileType c,cpp,objc,glsl,frag,vert nnoremap <buffer><leader>o :CocCommand clangd.switchSourceHeader<CR>
 
 " nmap <silent>gd <Plug>(coc-definition)
 " nmap <silent>gy <Plug>(coc-type-definition)
@@ -132,3 +143,6 @@ let g:lightline = {
     \ }
 " Use autocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+" for some reason .frag files are being detected as javascript
+autocmd! BufNewFile,BufRead *.frag set filetype=glsl

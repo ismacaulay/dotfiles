@@ -126,10 +126,13 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 nmap <leader>rn <Plug>(coc-rename)
 nnoremap <silent> <leader>p :<C-u>CocList -I symbols<cr>
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" nmap <silent>gd <Plug>(coc-definition)
+" nmap <silent>gy <Plug>(coc-type-definition)
+" nmap <silent>gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :Telescope coc definitions<cr>
+nmap <silent> gi :Telescope coc implementations<cr>
+nmap <silent> gr :Telescope coc references<cr>
 
 nnoremap <leader>te :tabe<cr>
 nnoremap <leader>tc :tabc<cr>
