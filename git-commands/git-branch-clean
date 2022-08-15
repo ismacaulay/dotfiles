@@ -1,0 +1,34 @@
+#!/usr/bin/env python3
+import subprocess
+
+def main():
+    local_branches = get_local_branches()
+
+    if local_branches:
+        print('Cleaning local branches')
+        for b in local_branches:
+            delete_branch(b)
+    else:
+        print('No local branched to clean')
+
+    print('Pruning remotes')
+    prune_origin()
+    print('Done')
+
+def get_local_branches():
+    cmd = ['git branch --merged']
+    output = subprocess.getoutput(cmd)
+    branches = [b.strip() for b in output.split('\n')]
+    return [b for b in branches if b != 'master' and not b.startswith('*')]
+
+def delete_branch(b):
+    delete = input(f'Delete branch {b}? [Y/n]')
+    delete = delete.lower()
+    if delete == '' or delete.startswith('y'):
+        subprocess.check_call(['git', 'branch', '-d', b])
+
+def prune_origin():
+    subprocess.check_call(['git', 'remote', 'prune', 'origin'])
+
+if __name__ == '__main__':
+    main()
