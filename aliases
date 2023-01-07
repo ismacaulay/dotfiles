@@ -3,8 +3,10 @@
 # alias vimdiff='nvim -d'
 
 alias szrc='source ~/.zshrc'
-alias ezrc='vim ~/.zshrc'
-alias evrc='vim ~/.vimrc'
+alias ezrc='nvim ~/.zshrc'
+alias evrc='nvim ~/.vimrc'
+alias ealias='nvim ~/workspaces/dotfiles/aliases'
+
 alias cdws='cd $HOME/workspaces'
 
 alias fix-keyboard="xmodmap ~/.Xmodmap && xcape -e 'Control_L=Escape'"
@@ -14,9 +16,11 @@ alias ccap="scrot -s /tmp/screenshot-$(date +%F_%T).png -e 'xclip -selection c -
 alias twitch='google-chrome-stable --app=https://twitch.tv'
 alias yl=$HOME/workspaces/dotfiles/scripts/yl.sh
 
-alias cdxyz='cd $HOME/workspaces/viz/xyz'
-
 alias mux=tmuxinator
+alias muxs=tmuxinator start
+alias muxn=tmuxinator new
+
+alias semsdk='source $HOME/github.com/emsdk/emsdk_env.sh'
 
 # git aliases
 alias ga='git add'

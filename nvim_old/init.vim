@@ -52,9 +52,10 @@ set nocompatible
 call plug#begin('~/.vim/plugged')
 
 " syntax highlighting/colour scheme
-Plug 'gruvbox-community/gruvbox'
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-Plug 'sheerun/vim-polyglot'
+" Plug 'gruvbox-community/gruvbox'
+Plug 'lewpoly/sherbet.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+" Plug 'sheerun/vim-polyglot'
 
 " telescope
 Plug 'nvim-lua/plenary.nvim'
@@ -71,7 +72,10 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'fannheyward/telescope-coc.nvim'
 
 " tools
-Plug 'preservim/nerdtree'
+" Plug 'preservim/nerdtree'
+Plug 'kyazdani42/nvim-web-devicons' " optional, for file icons
+Plug 'kyazdani42/nvim-tree.lua'
+
 Plug 'itchyny/lightline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
@@ -83,8 +87,9 @@ Plug 'rhysd/vim-clang-format'
 call plug#end()
 
 " ----- Theme ------
-colorscheme gruvbox
-set background=dark
+" colorscheme gruvbox
+" set background=dark
+colorscheme sherbet
 
 " ----- LSP Completion config ------
 " Use <Tab> and <S-Tab> to navigate through popup menu
@@ -109,8 +114,11 @@ inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 " nmap <leader>f :Neoformat<CR>
 
 " ----- NERDTree ------
-nnoremap <leader>nt :NERDTreeToggle<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
+" nnoremap <leader>nt :NERDTreeToggle<cr>
+" nnoremap <leader>nf :NERDTreeFind<cr>
+
+nnoremap <leader>nt :NvimTreeFocus<cr>
+nnoremap <leader>nf :NvimTreeFindFile<cr>
 
 " ----- CoC ------
 command! -nargs=0 CE :CocCommand eslint.executeAutofix
@@ -158,5 +166,5 @@ let g:lightline = {
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 " for some reason .frag files are being detected as javascript
-autocmd! BufNewFile,BufRead *.frag set filetype=glsl
+autocmd! BufNewFile,BufRead *.frag,*.vert set filetype=glsl
 autocmd FileType glsl setlocal commentstring=//\ %s
