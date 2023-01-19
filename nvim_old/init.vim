@@ -5,6 +5,7 @@ set nobackup
 set incsearch
 set clipboard+=unnamed
 set clipboard+=unnamedplus
+
 syntax on
 set number
 set cursorline

@@ -115,6 +115,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 vim.o.swapfile = false
+vim.o.clipboard = 'unnamedplus'
 
 -- Set highlight on search
 vim.o.hlsearch = false
@@ -151,8 +152,8 @@ vim.o.completeopt = 'menuone,noselect'
 
 -- Tabs
 vim.o.expandtab = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
 
 -- Whitespace
 vim.o.list = true
@@ -369,9 +370,9 @@ local on_attach = function(_, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -392,21 +393,20 @@ local on_attach = function(_, bufnr)
   -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
   --   vim.lsp.buf.format()
   -- end, { desc = 'Format current buffer with LSP' })
-  -- -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat');
-  -- vim.keymap.set("n", "<leader>f", function()
-  --   vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-  -- end, { buffer = bufnr, desc = "[lsp] format" })
+  -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat');
 end
 
 -- prettier setup
-local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
-local event = "BufWritePre" -- or "BufWritePost"
-local async = event == "BufWritePost"
+-- local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+-- local event = "BufWritePre" -- or "BufWritePost"
+-- local async = event == "BufWritePost"
 
 local null_ls = require('null-ls')
 null_ls.setup({
   sources = {
-    null_ls.builtins.formatting.prettier
+    null_ls.builtins.formatting.prettier,
+    null_ls.builtins.formatting.eslint_d,
+    -- null_ls.builtins.formatting.clang_format,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
@@ -415,15 +415,15 @@ null_ls.setup({
       end, { buffer = bufnr, desc = "[lsp] format" })
 
       -- format on save
-      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
-      vim.api.nvim_create_autocmd(event, {
-        buffer = bufnr,
-        group = group,
-        callback = function()
-          vim.lsp.buf.format({ bufnr = bufnr, async = async })
-        end,
-        desc = "[lsp] format on save",
-      })
+      -- vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      -- vim.api.nvim_create_autocmd(event, {
+      --   buffer = bufnr,
+      --   group = group,
+      --   callback = function()
+      --     vim.lsp.buf.format({ bufnr = bufnr, async = async })
+      --   end,
+      --   desc = "[lsp] format on save",
+      -- })
     end
 
     if client.supports_method("textDocument/rangeFormatting") then
