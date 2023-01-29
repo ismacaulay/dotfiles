@@ -55,7 +55,6 @@ require('packer').startup(function(use)
     -- Colorscheme
     use 'Mofiqul/vscode.nvim'
     use 'lewpoly/sherbet.nvim'
-    use 'navarasu/onedark.nvim' -- Theme inspired by Atom
 
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
     use 'lukas-reineke/indent-blankline.nvim' -- Add indentation guides even on blank lines
@@ -149,8 +148,6 @@ vim.o.termguicolors = true
 vim.o.background = 'light'
 -- vim.cmd [[colorscheme sherbet]]
 require('vscode').setup({});
--- require('onedark').setup({ style = 'light' });
--- require('onedark').load()
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -564,13 +561,21 @@ cmp.setup {
     },
 }
 
--- glsl fixes
-vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
-    pattern = { '*.frag', '*.vert' },
-    callback = function()
-        vim.bo.filetype = 'glsl'
-    end
+vim.filetype.add({
+  extension = {
+    wgsl = "wgsl",
+    frag = "glsl",
+    vert = "glsl",
+  }
 })
+
+-- -- glsl fixes
+-- vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+--     pattern = { '*.frag', '*.vert' },
+--     callback = function()
+--         vim.bo.filetype = 'glsl'
+--     end
+-- })
 
 -- nvim-tree setup
 require("nvim-tree").setup({

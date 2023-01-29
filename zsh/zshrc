@@ -30,6 +30,7 @@ if [ -f $HOME/workspaces/completion/alacritty.bash ]; then . $HOME/workspaces/co
 if [ -d $DOTFILES_DIR/bin ]; then export PATH=$DOTFILES_DIR/bin:$PATH; fi
 if [ -d $DOTFILES_DIR/git-commands ]; then export PATH=$DOTFILES_DIR/git-commands:$PATH; fi
 if [ -d $HOME/github.com/basis_universal/bin_osx ]; then export PATH=$HOME/github.com/basis_universal/bin_osx:$PATH; fi
+if [ -f $HOME/.cargo/env ]; then . $HOME/.cargo/env; fi
 
 # PROMPT='%F{yellow}%~ %(?.%F{green}→.%F{red}→)%f '
 
