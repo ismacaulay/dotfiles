@@ -1,0 +1,31 @@
+{
+    "workspace.library": [
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/neodev.nvim/types/stable",
+        "/opt/homebrew/Cellar/neovim/0.8.3/share/nvim/runtime/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/opt/nvim-treesitter-textobjects/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/opt/telescope-fzf-native.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/cmp_luasnip/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/Comment.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/fidget.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/gitsigns.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/harpoon/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/indent-blankline.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/lualine.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/LuaSnip/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/mason-lspconfig.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/mason.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/neodev.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/null-ls.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/nvim-cmp/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/nvim-lspconfig/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/nvim-tree.lua/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/nvim-treesitter/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/nvim-web-devicons/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/packer.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/plenary.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/sherbet.nvim/lua",
+        "/Users/ismacaulay/.local/share/nvim/site/pack/packer/start/telescope.nvim/lua",
+        "${3rd}/luv/library"
+    ]
+}

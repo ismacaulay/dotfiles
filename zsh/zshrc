@@ -17,8 +17,8 @@ HISTFILE=~/.zsh_history
 bindkey -e
 # bindkey "[D" backward-word
 # bindkey "[C" forward-word
-bindkey "3D" backward-word
-bindkey "3C" forward-word
+# bindkey "3D" backward-word
+# bindkey "3C" forward-word
 setopt ignore_eof
 
 export EDITOR='nvim'
@@ -117,3 +117,4 @@ zmodload -i zsh/complist
 export PNPM_HOME="/Users/ian.macaulay/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # pnpm end
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"

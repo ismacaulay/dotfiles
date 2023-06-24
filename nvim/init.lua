@@ -53,7 +53,6 @@ require('packer').startup(function(use)
     use 'lewis6991/gitsigns.nvim'
 
     -- Colorscheme
-    use 'Mofiqul/vscode.nvim'
     use 'lewpoly/sherbet.nvim'
 
     use 'nvim-lualine/lualine.nvim' -- Fancier statusline
@@ -72,6 +71,7 @@ require('packer').startup(function(use)
 
     -- Fuzzy Finder (files, lsp, etc)
     use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
+    use {'ThePrimeagen/harpoon', requires = { 'nvim-lua/plenary.nvim' } }
 
     -- Fuzzy Finder Algorithm which requires local dependencies to be built. Only load if `make` is available
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
@@ -145,9 +145,8 @@ vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
 vim.o.termguicolors = true
-vim.o.background = 'light'
--- vim.cmd [[colorscheme sherbet]]
-require('vscode').setup({});
+-- vim.o.background = 'light'
+vim.cmd [[colorscheme sherbet]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
@@ -195,13 +194,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
     pattern = '*',
 })
 
+vim.keymap.set('n', '<esc>', function() return '<Esc>:noh<CR>' end, { expr = true, silent = true, replace_keycodes = true })
+
+-- end, {})
 -- Set lualine as statusline
 -- See `:help lualine.txt`
 require('lualine').setup {
     options = {
         icons_enabled = false,
-        -- theme = 'sherbet',
-        theme = 'vscode',
+        theme = 'sherbet',
         component_separators = '|',
         section_separators = '',
     },
@@ -239,8 +240,14 @@ require('telescope').setup {
                 ['<C-d>'] = false,
             },
         },
+        file_ignore_patterns = {
+          "/?vendor/",
+          "/?node_modules/"
+        }
     },
 }
+
+require("harpoon").setup({})
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
@@ -407,21 +414,24 @@ end
 
 local null_ls = require('null-ls')
 null_ls.setup({
+    debug = true,
     sources = {
         null_ls.builtins.formatting.eslint_d,
-        null_ls.builtins.formatting.prettierd.with({
+        null_ls.builtins.formatting.prettier.with({
             extra_filetypes = { "svelte" }
         }),
-        -- null_ls.builtins.formatting.clang_format,
+        null_ls.builtins.formatting.rustfmt,
+        null_ls.builtins.formatting.clang_format,
     },
     on_attach = function(client, bufnr)
-        print(client.name)
         if client.supports_method("textDocument/formatting") then
             vim.keymap.set("n", "<leader>f", function()
                 vim.lsp.buf.format({
                     bufnr = vim.api.nvim_get_current_buf(),
                     -- filter = function(c) return c.name ~= "tsserver" end
-                    filter = function(c) return c.name == "null-ls" end
+                    filter = function(c)
+                        return c.name == "null-ls"
+                    end
                 })
             end, { buffer = bufnr, desc = "[lsp] format" })
 
@@ -437,11 +447,11 @@ null_ls.setup({
             -- })
         end
 
-        if client.supports_method("textDocument/rangeFormatting") then
-            vim.keymap.set("x", "<Leader>f", function()
-                vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
-            end, { buffer = bufnr, desc = "[lsp] format" })
-        end
+        -- if client.supports_method("textDocument/rangeFormatting") then
+        --     vim.keymap.set("x", "<leader>f", function()
+        --         vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+        --     end, { buffer = bufnr, desc = "[lsp] format" })
+        -- end
     end,
 })
 
@@ -470,13 +480,6 @@ local servers = {
     eslint = {},
     tsserver = {},
     svelte = {},
-
-    sumneko_lua = {
-        Lua = {
-            workspace = { checkThirdParty = false },
-            telemetry = { enable = false },
-        },
-    },
 }
 
 -- Setup neovim lua configuration
