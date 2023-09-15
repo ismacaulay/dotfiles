@@ -47,7 +47,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -71,26 +71,26 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
-  -- {
-  --   -- Adds git related signs to the gutter, as well as utilities for managing changes
-  --   'lewis6991/gitsigns.nvim',
-  --   opts = {
-  --     -- See `:help gitsigns.txt`
-  --     signs = {
-  --       add = { text = '+' },
-  --       change = { text = '~' },
-  --       delete = { text = '_' },
-  --       topdelete = { text = '‾' },
-  --       changedelete = { text = '~' },
-  --     },
-  --     -- on_attach = function(bufnr)
-  --     --   vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
-  --     --   vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
-  --     --   vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
-  --     -- end,
-  --   },
-  -- },
+  { 'folke/which-key.nvim',  opts = {} },
+  {
+    -- Adds git related signs to the gutter, as well as utilities for managing changes
+    'lewis6991/gitsigns.nvim',
+    opts = {
+      -- See `:help gitsigns.txt`
+      signs = {
+        add = { text = '+' },
+        change = { text = '~' },
+        delete = { text = '_' },
+        topdelete = { text = '‾' },
+        changedelete = { text = '~' },
+      },
+      -- on_attach = function(bufnr)
+      --   vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+      --   vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
+      --   vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
+      -- end,
+    },
+  },
 
   {
     -- Theme inspired by Atom
@@ -191,7 +191,8 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = true
-vim.keymap.set('n', '<esc>', function() return '<Esc>:noh<CR>' end, { expr = true, silent = true, replace_keycodes = true })
+vim.keymap.set('n', '<esc>', function() return '<Esc>:noh<CR>' end,
+  { expr = true, silent = true, replace_keycodes = true })
 
 -- Make line numbers default
 vim.wo.number = true
@@ -238,8 +239,8 @@ vim.o.shiftwidth = 4
 -- Whitespace
 vim.o.list = true
 vim.opt.listchars = {
-    tab = '→ ',
-    trail = '·'
+  tab = '→ ',
+  trail = '·'
 }
 
 -- [[ Basic Keymaps ]]
@@ -273,6 +274,10 @@ require('telescope').setup {
         ['<C-d>'] = false,
       },
     },
+    file_ignore_patterns = {
+      "/?vendor/",
+      "/?node_modules/"
+    }
   },
 }
 
@@ -301,7 +306,8 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
+    'svelte' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -371,7 +377,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -389,9 +395,11 @@ local on_attach = function(_, bufnr)
   nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
-  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  -- nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
   nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  -- nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  nmap('gi', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
   nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols, '[D]ocument [S]ymbols')
   nmap('<leader>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
@@ -404,7 +412,18 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
-  nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
+
+  if client.name == 'eslint' or client.name == 'tsserver' then
+    nmap('<leader>f', function() vim.cmd('EslintFixAll') end, '[F]ormat the current buffer with eslint')
+  else
+    nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
+  end
+
+  if client.name == 'clangd' then
+    nmap('<leader>o', function() vim.cmd('ClangdSwitchSourceHeader'); end, '[cpp] Switch header/source')
+  end
+
+  -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
   nmap('<leader>wl', function()
     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
   end, '[W]orkspace [L]ist Folders')
@@ -413,7 +432,6 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
-
 end
 
 -- Enable the following language servers
@@ -431,7 +449,10 @@ local servers = {
   -- rust_analyzer = {},
   -- tsserver = {},
   -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+  -- eslint = {
+  --   format = true
+  -- },
+  --
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -515,15 +536,15 @@ cmp.setup {
 
 -- nvim-tree setup
 require("nvim-tree").setup({
-    view = {
-        adaptive_size = true
-    }
+  view = {
+    adaptive_size = true
+  }
 })
 
 vim.keymap.set('n', '<leader>nt', function() vim.cmd('NvimTreeToggle') end,
-    { desc = '[N]vimTree [T]oggle' })
+  { desc = '[N]vimTree [T]oggle' })
 vim.keymap.set('n', '<leader>nf', function() vim.cmd('NvimTreeFindFile') end,
-    { desc = '[N]vimTree [F]ind' })
+  { desc = '[N]vimTree [F]ind' })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
