@@ -30,7 +30,17 @@ require('lazy').setup({
 
   -- Git related plugins
   'tpope/vim-fugitive',
-  'tpope/vim-rhubarb',
+  -- 'tpope/vim-rhubarb',
+  -- {
+  --   "NeogitOrg/neogit",
+  --   dependencies = {
+  --     "nvim-lua/plenary.nvim",         -- required
+  --     "nvim-telescope/telescope.nvim", -- optional
+  --     "sindrets/diffview.nvim",        -- optional
+  --     "ibhagwan/fzf-lua",              -- optional
+  --   },
+  --   config = true
+  -- },
 
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -47,10 +57,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
+      'mhartington/formatter.nvim',
     },
   },
 
@@ -71,7 +82,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim',  opts = {} },
+  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -96,10 +107,16 @@ require('lazy').setup({
     -- Theme inspired by Atom
     -- 'navarasu/onedark.nvim',
     'lewpoly/sherbet.nvim',
+    -- "ellisonleao/gruvbox.nvim",
+    -- "morhetz/gruvbox",
+    -- "sainnhe/everforest",
     priority = 1000,
     config = function()
       -- vim.cmd.colorscheme 'onedark'
       vim.cmd.colorscheme 'sherbet'
+      -- vim.o.background = "dark"
+      -- vim.cmd.colorscheme "gruvbox"
+      -- vim.cmd.colorscheme 'everforest'
     end,
   },
 
@@ -123,10 +140,26 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
+    main = 'ibl',
     opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
+      indent = {
+        char = '┊',
+        -- smart_indent_cap = false,
+      },
+      whitespace = {
+        -- remove_blankline_trail = false,
+      },
+      scope = {
+        -- enabled = false
+        show_start = false,
+        show_end = false,
+      },
     },
+    -- config = function()
+    --   require('ibl').setup {
+    --     show_trailing_blankline_indent = false,
+    --   }
+    -- end,
   },
 
   -- "gc" to comment visual regions/lines
@@ -169,7 +202,7 @@ require('lazy').setup({
     },
   },
 
-  'christoomey/vim-tmux-navigator' -- navigation integration with tmux
+  'christoomey/vim-tmux-navigator', -- navigation integration with tmux
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -191,8 +224,9 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = true
-vim.keymap.set('n', '<esc>', function() return '<Esc>:noh<CR>' end,
-  { expr = true, silent = true, replace_keycodes = true })
+vim.keymap.set('n', '<esc>', function()
+  return '<Esc>:noh<CR>'
+end, { expr = true, silent = true, replace_keycodes = true })
 
 -- Make line numbers default
 vim.wo.number = true
@@ -240,8 +274,20 @@ vim.o.shiftwidth = 4
 vim.o.list = true
 vim.opt.listchars = {
   tab = '→ ',
-  trail = '·'
+  trail = '·',
+  space = '·',
 }
+
+-- refresh on focus
+vim.o.autoread = true
+vim.api.nvim_create_autocmd({ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  pattern = { '*' },
+  command = "if mode() != 'c' | checktime | endif",
+})
+vim.api.nvim_create_autocmd({ 'FileChangedShellPost' }, {
+  pattern = { '*' },
+  command = 'echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None',
+})
 
 -- [[ Basic Keymaps ]]
 
@@ -275,9 +321,9 @@ require('telescope').setup {
       },
     },
     file_ignore_patterns = {
-      "/?vendor/",
-      "/?node_modules/"
-    }
+      '/?vendor/',
+      '/?node_modules/',
+    },
   },
 }
 
@@ -306,8 +352,7 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
-    'svelte' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'svelte' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
@@ -414,13 +459,20 @@ local on_attach = function(client, bufnr)
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
 
   if client.name == 'eslint' or client.name == 'tsserver' then
-    nmap('<leader>f', function() vim.cmd('EslintFixAll') end, '[F]ormat the current buffer with eslint')
+    nmap('<leader>f', function()
+      vim.cmd 'EslintFixAll'
+    end, '[F]ormat the current buffer with eslint')
   else
-    nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
+    -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
+    nmap('<leader>f', function()
+      vim.cmd 'Format'
+    end, '[F]ormat the current buffer with formatter')
   end
 
   if client.name == 'clangd' then
-    nmap('<leader>o', function() vim.cmd('ClangdSwitchSourceHeader'); end, '[cpp] Switch header/source')
+    nmap('<leader>o', function()
+      vim.cmd 'ClangdSwitchSourceHeader'
+    end, '[cpp] Switch header/source')
   end
 
   -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
@@ -429,9 +481,9 @@ local on_attach = function(client, bufnr)
   end, '[W]orkspace [L]ist Folders')
 
   -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
+  -- vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+  --   vim.lsp.buf.format()
+  -- end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -483,7 +535,7 @@ mason_lspconfig.setup_handlers {
       settings = servers[server_name],
       filetypes = (servers[server_name] or {}).filetypes,
     }
-  end
+  end,
 }
 
 -- [[ Configure nvim-cmp ]]
@@ -535,16 +587,52 @@ cmp.setup {
 }
 
 -- nvim-tree setup
-require("nvim-tree").setup({
+require('nvim-tree').setup {
   view = {
-    adaptive_size = true
-  }
-})
+    adaptive_size = true,
+  },
+}
 
-vim.keymap.set('n', '<leader>nt', function() vim.cmd('NvimTreeToggle') end,
-  { desc = '[N]vimTree [T]oggle' })
-vim.keymap.set('n', '<leader>nf', function() vim.cmd('NvimTreeFindFile') end,
-  { desc = '[N]vimTree [F]ind' })
+vim.keymap.set('n', '<leader>nt', function()
+  vim.cmd 'NvimTreeToggle'
+end, { desc = '[N]vimTree [T]oggle' })
+vim.keymap.set('n', '<leader>nf', function()
+  vim.cmd 'NvimTreeFindFile'
+end, { desc = '[N]vimTree [F]ind' })
+
+-- Provides the Format, FormatWrite, FormatLock, and FormatWriteLock commands
+require('formatter').setup {
+  -- Enable or disable logging
+  logging = true,
+  -- Set the log level
+  log_level = vim.log.levels.WARN,
+  -- All formatter configurations are opt-in
+  filetype = {
+    -- Formatter configurations for filetype "lua" go here
+    -- and will be executed in order
+    lua = {
+      -- "formatter.filetypes.lua" defines default configurations for the
+      -- "lua" filetype
+      require('formatter.filetypes.lua').stylua,
+    },
+
+    python = {
+      require('formatter.filetypes.python').yapf,
+    },
+
+    cpp = {
+      require('formatter.filetypes.cpp').clangformat,
+    },
+
+    -- Use the special "*" filetype for defining formatter configurations on
+    -- any filetype
+    ['*'] = {
+      -- "formatter.filetypes.any" defines default configurations for any
+      -- filetype
+      require('formatter.filetypes.any').remove_trailing_whitespace,
+    },
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
