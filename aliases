@@ -4,7 +4,7 @@
 
 alias szrc='source ~/.zshrc'
 alias ezrc='nvim ~/.zshrc'
-alias evrc='nvim ~/.vimrc'
+alias evrc='nvim ~/.config/nvim/init.lua'
 alias ealias='nvim ~/workspaces/dotfiles/aliases'
 
 alias cdws='cd $HOME/workspaces'

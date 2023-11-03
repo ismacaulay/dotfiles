@@ -300,10 +300,13 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- ThePrimeagen special keymaps
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', 'n', 'nzzzv')
+vim.keymap.set('n', 'N', 'Nzzzv')
+
+vim.keymap.set('n', '<C-o>', '<C-o>zz')
+vim.keymap.set('n', '<C-i>', '<C-i>zz')
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -464,16 +467,16 @@ local on_attach = function(client, bufnr)
   nmap('<leader>wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [A]dd Folder')
   nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [R]emove Folder')
 
-  if client.name == 'eslint' or client.name == 'tsserver' then
-    nmap('<leader>f', function()
-      vim.cmd 'EslintFixAll'
-    end, '[F]ormat the current buffer with eslint')
-  else
-    -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
-    nmap('<leader>f', function()
-      vim.cmd 'Format'
-    end, '[F]ormat the current buffer with formatter')
-  end
+  -- if client.name == 'eslint' or client.name == 'tsserver' then
+  --   nmap('<leader>f', function()
+  --     vim.cmd 'EslintFixAll'
+  --   end, '[F]ormat the current buffer with eslint')
+  -- else
+  --   -- nmap('<leader>f', vim.lsp.buf.format, '[F]ormat the current buffer with LSP')
+  --   nmap('<leader>f', function()
+  --     vim.cmd 'Format'
+  --   end, '[F]ormat the current buffer with formatter')
+  -- end
 
   if client.name == 'clangd' then
     nmap('<leader>o', function()
@@ -592,6 +595,15 @@ cmp.setup {
   },
 }
 
+vim.filetype.add({
+  extension = {
+    wgsl = "wgsl",
+    frag = "glsl",
+    vert = "glsl",
+    gltf = "json",
+  }
+})
+
 -- nvim-tree setup
 require('nvim-tree').setup {
   view = {
@@ -630,6 +642,17 @@ require('formatter').setup {
       require('formatter.filetypes.cpp').clangformat,
     },
 
+    json = {
+      require('formatter.filetypes.json').prettierd,
+    },
+
+    javascript = {
+      require('formatter.filetypes.javascript').eslint_d,
+    },
+    typescript = {
+      require('formatter.filetypes.typescript').eslint_d,
+    },
+
     -- Use the special "*" filetype for defining formatter configurations on
     -- any filetype
     ['*'] = {
@@ -640,5 +663,8 @@ require('formatter').setup {
   },
 }
 
+vim.keymap.set('n', '<leader>f', function()
+  vim.cmd 'Format'
+end, { desc = '[F]ormat' })
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
