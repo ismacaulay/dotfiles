@@ -108,6 +108,8 @@ font:
     # family: Monaco
     # family: Fira Code Nerd Font Mono
     family: RobotoMono Nerd Font Mono
+    # family: Hack Nerd Font Mono
+    # family: DejaVuSansM Nerd Font Mono
     # The `style` can be specified to pick a specific face.
     style: Regular
 
