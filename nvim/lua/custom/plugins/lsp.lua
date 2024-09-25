@@ -19,7 +19,7 @@ return {
       local servers = {
         clangd = {},
         pyright = {},
-        tsserver = {},
+        ts_ls = {},
         -- html = { filetypes = { 'html', 'twig', 'hbs'} },
         -- eslint = {
         --   format = true

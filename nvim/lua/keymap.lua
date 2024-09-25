@@ -20,3 +20,18 @@ vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous dia
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+
+-- Disable some keys because I keep hitting it on the Advantage 360 and they cause it to jump alot
+vim.keymap.set('i', '<S-Up>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('i', '<S-Down>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('i', '<S-Left>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('i', '<S-Right>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('i', '<PageUp>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('i', '<PageDown>', '<NOP>', { noremap = true, silent = true })
+
+vim.keymap.set('n', '<S-Up>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Down>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Left>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<S-Right>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<PageUp>', '<NOP>', { noremap = true, silent = true })
+vim.keymap.set('n', '<PageDown>', '<NOP>', { noremap = true, silent = true })

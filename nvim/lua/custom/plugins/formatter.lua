@@ -19,7 +19,7 @@ return {
         },
 
         python = {
-          require('formatter.filetypes.python').yapf,
+          require('formatter.filetypes.python').ruff,
         },
 
         cpp = {
@@ -30,11 +30,23 @@ return {
           require('formatter.filetypes.json').prettierd,
         },
 
+        svelte = {
+          require('formatter.filetypes.svelte').prettier,
+        },
+
+        css = {
+          require('formatter.filetypes.css').prettierd,
+        },
+        html = {
+          require('formatter.filetypes.html').prettierd,
+        },
         javascript = {
-          require('formatter.filetypes.javascript').eslint_d,
+          -- require('formatter.filetypes.javascript').eslint_d,
+          require('formatter.filetypes.javascript').prettierd,
         },
         typescript = {
-          require('formatter.filetypes.typescript').eslint_d,
+          -- require('formatter.filetypes.typescript').eslint_d,
+          require('formatter.filetypes.typescript').prettierd,
         },
 
         -- Use the special "*" filetype for defining formatter configurations on

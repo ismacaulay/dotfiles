@@ -3,9 +3,10 @@
 
 -- Set highlight on search
 vim.o.hlsearch = true
-vim.keymap.set('n', '<esc>', function()
-  return '<Esc>:noh<CR>'
-end, { expr = true, silent = true, replace_keycodes = true })
+-- vim.keymap.set('n', '<esc>', function()
+--   return '<Esc>:noh<CR>'
+-- end, { expr = true, silent = true, replace_keycodes = true })
+vim.keymap.set('n', '<Esc><Esc>', ':noh<CR>', { noremap = true, silent = true })
 
 -- Make line numbers default
 vim.wo.number = true
