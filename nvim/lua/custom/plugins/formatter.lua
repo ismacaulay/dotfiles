@@ -49,6 +49,14 @@ return {
           require('formatter.filetypes.typescript').prettierd,
         },
 
+        rust = {
+          require('formatter.filetypes.rust').rustfmt,
+        },
+
+        go = {
+          require('formatter.filetypes.go').gofmt,
+        },
+
         -- Use the special "*" filetype for defining formatter configurations on
         -- any filetype
         ['*'] = {

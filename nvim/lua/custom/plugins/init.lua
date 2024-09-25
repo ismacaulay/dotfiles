@@ -21,7 +21,6 @@ return {
   },
 
   { 'folke/which-key.nvim', opts = {} },
-  { 'numToStr/Comment.nvim', opts = {} }, -- "gc" to comment visual regions/lines
   {
     -- Add indentation guides even on blank lines
     'lukas-reineke/indent-blankline.nvim',
